@@ -31,10 +31,11 @@ def loadData(imagePath, WIDTH, HEIGHT):
     canvas.pack()
     img = PhotoImage(width=WIDTH, height=HEIGHT)
     canvas.create_image((WIDTH/2, HEIGHT/2), image=img, state="normal")
-
-    for x in range(0, 120):
-        for y in range(0, 160):
-            img.put(rgbdata[x+y], (x,y))
+    i = 0
+    for x in range(0, WIDTH):
+        for y in range(0, HEIGHT):
+            img.put(rgbdata[i], (x,y))
+            i+=1
     print(" success!")
 
     mainloop()
