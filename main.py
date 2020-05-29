@@ -38,6 +38,7 @@ def loadData(imagePath, WIDTH, HEIGHT):
             i+=1
     print(" success!")
 
+    print("> Total Bytes Processed: {:,}".format(len(rgbdata)*2) )
     mainloop()
 
 
