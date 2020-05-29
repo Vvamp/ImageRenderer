@@ -14,11 +14,13 @@ def loadData(imagePath, WIDTH, HEIGHT):
 
     print("> Parsing data...", end="")
     rgbdata = []
-    for rgbval in data.split(' '):
+    for rgbval in data.split(')'):
         if(len(rgbval) <= 1):
             continue
         rgbval = rgbval.replace('(', '')
         rgbval = rgbval.replace(')', '')
+        rgbval = rgbval.replace('\n', '')
+        rgbval = rgbval.replace(' ', '')
         red = int(rgbval.split(',')[0])
         green = int(rgbval.split(',')[1])
         blue = int(rgbval.split(',')[2])
@@ -27,6 +29,7 @@ def loadData(imagePath, WIDTH, HEIGHT):
 
     print ("> Rendering Image...", end="")
     window = Tk()
+    window.title("Image {}x{}".format(WIDTH, HEIGHT))
     canvas = Canvas(window, width=1920, height=1080, bg="#000000")
     canvas.pack()
     img = PhotoImage(width=WIDTH, height=HEIGHT)
