@@ -14,13 +14,17 @@ def loadData(imagePath, WIDTH, HEIGHT):
 
     print("> Parsing data...", end="")
     rgbdata = []
+    i=0
     for rgbval in data.split(')'):
         if(len(rgbval) <= 1):
             continue
+        i+=1
+        print("> RGB bytes: {}".format(i))
         rgbval = rgbval.replace('(', '')
         rgbval = rgbval.replace(')', '')
         rgbval = rgbval.replace('\n', '')
         rgbval = rgbval.replace(' ', '')
+        print(rgbval)
         red = int(rgbval.split(',')[0])
         green = int(rgbval.split(',')[1])
         blue = int(rgbval.split(',')[2])
@@ -41,7 +45,7 @@ def loadData(imagePath, WIDTH, HEIGHT):
             i+=1
     print(" success!")
 
-    print("> Total Bytes Processed: {:,}".format(len(rgbdata)*2) )
+    print("> Total Bytes Processed: {:,}".format(i))
     mainloop()
 
 
