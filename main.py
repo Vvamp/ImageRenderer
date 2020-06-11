@@ -6,20 +6,20 @@ def clamp(x):
 
 
 def loadData(imagePath, WIDTH, HEIGHT):
-    print("> Opening image data...")
+    print("File IO > Opening image data...")
     dataFile = open(imagePath, "r")
-    print("> Reading data...", end="")
+    print("File IO > Reading data...", end="")
     data = dataFile.read()
     print(" success!")
 
-    print("> Parsing data...", end="")
+    print("Parser > Parsing data...", end="")
     rgbdata = []
     i=0
     for rgbval in data.split(')'):
         if(len(rgbval) <= 1):
             continue
         i+=1
-        print("> RGB bytes: {}".format(i))
+        print("Parser > RGB bytes: {}".format(i))
         rgbval = rgbval.replace('(', '')
         rgbval = rgbval.replace(')', '')
         rgbval = rgbval.replace('\n', '')
@@ -31,7 +31,7 @@ def loadData(imagePath, WIDTH, HEIGHT):
         rgbdata.append("#{0:02x}{1:02x}{2:02x}".format(clamp(red), clamp(green), clamp(blue)))
     print(" success!")
 
-    print ("> Rendering Image...", end="")
+    print ("Renderer > Rendering Image...", end="")
     window = Tk()
     window.title("Image {}x{}".format(WIDTH, HEIGHT))
     canvas = Canvas(window, width=1920, height=1080, bg="#000000")
@@ -45,7 +45,7 @@ def loadData(imagePath, WIDTH, HEIGHT):
             i+=1
     print(" success!")
 
-    print("> Total Bytes Processed: {:,}".format(i))
+    print("Done > Total Bytes Processed: {:,}".format(i))
     mainloop()
 
 
