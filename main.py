@@ -4,12 +4,13 @@ import math
 import sys
 
 settings ={
-    "debug" : False,
-    "findy" : False,
-    "findx" : False,
-    "path" : "unset",
-    "width" : -1,
-    "height" : -1
+    "debug"     : False,
+    "findy"     : False,
+    "findx"     : False,
+    "help"      : False,
+    "path"      : "unset",
+    "width"     : -1,
+    "height"    : -1
 }
 
 def processCLI_Args(args):
@@ -76,11 +77,16 @@ def loadData(imagePath, WIDTH, HEIGHT, findX=False, findY=False):
         print(" success!")
         print ("Renderer > Rendering Image...", end="")
 
-    if findY:
+    if findY == True and findX == False:
         HEIGHT = abs(math.floor(len(rgbdata)/WIDTH))
-    if findX:
+    elif findX == True and findY == False:
         WIDTH = abs(math.floor(len(rgbdata)/HEIGHT))
-   
+    elif findX and findY:
+        HEIGHT = math.floor(math.sqrt(len(rgbdata)))
+        WIDTH = HEIGHT
+
+ 
+
 
     window = Tk()
     window.title("Image {}x{}".format(WIDTH, HEIGHT))
