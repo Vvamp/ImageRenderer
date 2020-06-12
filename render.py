@@ -9,7 +9,7 @@ import sys
 # Meta Data
 PROGRAM_AUTHOR="Vincent van Setten"
 PROGRAM_NAME="RGB Renderer"
-PROGRAM_VERSION="0.4.5"
+PROGRAM_VERSION="0.6.1"
 
 # Settings(Command Line Arguments)
 
@@ -199,9 +199,6 @@ def export(image):
         except:
             print('fail.')
         print("success!")
-
-
-
 
 # Render Image Data
 def render(imagePath: str, WIDTH: int, HEIGHT: int, findX=False, findY=False):
