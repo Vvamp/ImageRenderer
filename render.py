@@ -1,5 +1,8 @@
+#!/bin/python
 from tkinter import *
 from math import sin
+from PIL import Image, ImageDraw
+import PIL
 import math
 import sys
 
@@ -29,7 +32,8 @@ settings = {
     "help"      : setting("help", "Shows this help menu.", True, False, "render.py --help", ['-help', 'h']),
     "path"      : setting("path", "Sets the path to the image path. This file has to be in raw text and should contain RGB data.", False, "unset", "render.py --path <path_to_file>", ['-path', '-file', 'f']),
     "width"     : setting("width", "Set the width of the image.", False, -1, "render.py --width <width>", ['-width']),
-    "height"    : setting("height", "Set the height of the image.", False, -1, "render.py --height", ['-height'])
+    "height"    : setting("height", "Set the height of the image.", False, -1, "render.py --height", ['-height']),
+    "output"    : setting("output", "Save the image", False, "unset", "render.py --output <file>", ['-output', '-out', 'o'] )
 }
 
 def processCLI_Args(args):
@@ -106,18 +110,7 @@ def help():
 
 # Vital functions
 
-# Process Image Data
-def process(imagePath: str, WIDTH, HEIGHT, findX=False, findY=False):
-    """Loads image data from file, parses it and creates an image. If the size is unknown, it tries to find it, if the findX and findY params are set.
-
-    Parameters:
-    imagePath (str): Path to the image file
-    WIDTH (int): Width of the image
-    HEIGHT (int): Height of the image
-    findX (bool): If the width of the image should be calculated automatically
-    findY (bool): If the height of the image should be calculated automatically
-    """
-
+def getData(imagePath):
     if settings["debug"].value == True:
         print("File IO > Opening image data...")
     dataFile = open(imagePath, "r")
@@ -129,6 +122,32 @@ def process(imagePath: str, WIDTH, HEIGHT, findX=False, findY=False):
     if settings["debug"].value == True:
         print(" success!")
 
+    return data
+def parseOutputData(data):
+    if settings["debug"].value == True:
+        print("Parser > Parsing output data...", end="")
+    rgbdata = []
+    i=0
+    for rgbval in data.split(')'):
+        if(len(rgbval) <= 1):
+            continue
+        i+=1
+        if settings["debug"].value == True:
+            print("Parser > RGB bytes: {}".format(i))
+        rgbval = rgbval.replace('(', '')
+        rgbval = rgbval.replace(')', '')
+        rgbval = rgbval.replace('\n', '')
+        rgbval = rgbval.replace(' ', '')
+        if settings["debug"].value == True:
+            print(rgbval)
+        red = int(rgbval.split(',')[0])
+        green = int(rgbval.split(',')[1])
+        blue = int(rgbval.split(',')[2])
+        rgbdata.append((red, green, blue))
+    if settings["debug"].value == True:
+        print(" success!")
+    return rgbdata
+def parseData(data):
     if settings["debug"].value == True:
         print("Parser > Parsing data...", end="")
     rgbdata = []
@@ -151,32 +170,109 @@ def process(imagePath: str, WIDTH, HEIGHT, findX=False, findY=False):
         rgbdata.append("#{0:02x}{1:02x}{2:02x}".format(clamp(red), clamp(green), clamp(blue)))
     if settings["debug"].value == True:
         print(" success!")
+    return rgbdata
+
+def calculateWidth(rgbdata, height=-1):
+    if height > 0:
+        return abs(math.floor(len(rgbdata)/height))
+    else:
+        return math.floor(math.sqrt(len(rgbdata)))
+
+
+def calculateHeight(rgbdata, width=-1):
+    if width > 0:
+        return abs(math.floor(len(rgbdata)/width))
+    else:
+        return math.floor(math.sqrt(len(rgbdata)))
+
+def export(image):
+    print("Export > Preparing image for exporting...")
+   # Save the image to file if set
+    if settings["output"].value != "unset":
+        extension = ""
+        if not settings["output"].value.endswith("jpg"):
+            extension = ".jpg"
+        name = settings["output"].value + extension
+        print("Export > Saving image {}... ".format(name), end="")
+        try:
+            image.save(name)
+        except:
+            print('fail.')
+        print("success!")
+
+
+
+
+# Render Image Data
+def render(imagePath: str, WIDTH: int, HEIGHT: int, findX=False, findY=False):
+    """Loads image data from file, parses it and creates an image. If the size is unknown, it tries to find it, if the findX and findY params are set.
+
+    Parameters:
+    imagePath (str): Path to the image file
+    WIDTH (int): Width of the image
+    HEIGHT (int): Height of the image
+    findX (bool): If the width of the image should be calculated automatically
+    findY (bool): If the height of the image should be calculated automatically
+    """
+
+    # Retrieve data from file
+    data = getData(imagePath)
+
+    # Parse the data and store it in a 1d-array
+    rgbdata = parseData(data)
+    if settings["output"].value != "unset":
+        photoData = parseOutputData(data)
+
+    if settings["debug"].value == True:
         print ("Renderer > Rendering Image...", end="")
+    
 
+    # Check if the sizes have been calculated. Calculate them otherwise
     if findY == True and findX == False:
-        HEIGHT = abs(math.floor(len(rgbdata)/WIDTH))
+        HEIGHT = calculateHeight(rgbdata, WIDTH)
     elif findX == True and findY == False:
-        WIDTH = abs(math.floor(len(rgbdata)/HEIGHT))
+        WIDTH = calculateWidth(rgbdata, HEIGHT)
     elif findX and findY:
-        HEIGHT = math.floor(math.sqrt(len(rgbdata)))
-        WIDTH = HEIGHT
+        HEIGHT = calculateHeight(rgbdata)
+        WIDTH = calculateWidth(rgbdata)
 
+    # Make a tkinter window
     window = Tk()
     window.title("Image {}x{}".format(WIDTH, HEIGHT))
+    
+    # Make a canvas
     canvas = Canvas(window, width=1920, height=1080, bg="#000000")
     canvas.pack()
+
+    # Initialize an empty photo
     img = PhotoImage(width=WIDTH, height=HEIGHT)
-    canvas.create_image((WIDTH/2, HEIGHT/2), image=img, state="normal")
+        
+    if settings["output"].value != "unset":
+        img_output = Image.new("RGB", (int(WIDTH), int(HEIGHT)))
+        img_draw = PIL.ImageDraw.Draw(img_output)
+
+    canvas.create_image((int(WIDTH)/2, int(HEIGHT)/2), image=img, state="normal")
+
+    # Render pixels on the photo 1 by 1
     i = 0
-    for y in range(0, HEIGHT):
-        for x in range(0, WIDTH):
+    for y in range(0, int(HEIGHT)):
+        for x in range(0, int(WIDTH)):
             img.put(rgbdata[i], (x,y))
+            if settings["output"].value != "unset":
+                img_draw.point((x,y), photoData[i])
             i+=1
     if settings["debug"].value == True:
         print(" success!")
 
+    # Output image if necessary
+    if settings["output"].value != "unset":
+        export(img_output)
+
     if settings["debug"].value == True:
         print("Done > Total Bytes Processed: {:,}".format(i))
+
+    
+    # Show everything
     mainloop()
 
 
@@ -205,7 +301,7 @@ def init():
         settings["height"].value = int(settings["height"])
 
     
-    process(settings["path"].value, settings["width"].value, settings["height"].value, settings["findx"].value, settings["findy"].value)
+    render(settings["path"].value, settings["width"].value, settings["height"].value, settings["findx"].value, settings["findy"].value)
 #----------------------------------------------------------------------
 
 
