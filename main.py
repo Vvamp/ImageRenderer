@@ -39,8 +39,8 @@ def loadData(imagePath, WIDTH, HEIGHT):
     img = PhotoImage(width=WIDTH, height=HEIGHT)
     canvas.create_image((WIDTH/2, HEIGHT/2), image=img, state="normal")
     i = 0
-    for x in range(0, WIDTH):
-        for y in range(0, HEIGHT):
+    for y in range(0, HEIGHT):
+        for x in range(0, WIDTH):
             img.put(rgbdata[i], (x,y))
             i+=1
     print(" success!")
