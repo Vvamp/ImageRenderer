@@ -3,10 +3,14 @@ from math import sin
 import math
 import sys
 
+# Meta Data
 PROGRAM_AUTHOR="Vincent van Setten"
 PROGRAM_NAME="RGB Renderer"
-PROGRAM_VERSION="0.4.2"
+PROGRAM_VERSION="0.4.5"
 
+# Settings(Command Line Arguments)
+
+# Settings base class
 class setting:
     def __init__(self, name: str, description: str, isSwitch: bool, value, usage="", synonyms=[]):
         self.name = name
@@ -16,7 +20,9 @@ class setting:
         self.usage = usage 
         self.synonyms = synonyms
 
-settings ={
+
+# A dictionary of command line arguments. Try to refrai from using the key. Instead, use the value's synonyms. 
+settings = {
     "debug"     : setting("debug", "Toggles debugging output.", True, False, "render.py --debug", ['-debug', 'd']),
     "findy"     : setting("findx", "Make the program find the correct height based on the width. If the width is also unknown, it makes a square image.", True, False, "render.py --findx", ['-findx', 'x']),
     "findx"     : setting("findy", "Makes the program find the correct width based on the height. If the height is also unknown, it makes a square image.", True, False, "render.py --findy", ['-findy', 'y']),
@@ -27,6 +33,11 @@ settings ={
 }
 
 def processCLI_Args(args):
+    """Sets the list of values corresponding to the command line arguments
+
+    Parameters:
+    args (list of strings): The command line arguments passed. Excluding the name of the file
+    """
     flagValue = False
     flagValue_value = "None"
 
@@ -67,20 +78,46 @@ def processCLI_Args(args):
                         _setting.value = argument
             flagValue = False
 
+#----------------------------------------------------------------------
+# Small, Standalone functions
 
-def clamp(x): 
+# Clamp Function - Thanks to stackoverflow
+def clamp(x):
+  """ Clips 'x' to the nearest value if it exceeds the max or min
+
+  Parameters:
+  x (int): The value to be clipped
+
+  Returns:
+  int:If the value is between 0 and 255, returns that value. If it exceeds 255, it returns 255. If it is below 0, 0 is returned.
+  """   
   return max(0, min(x, 255))
 
-
+# Help Function
 def help():
+    """Prints a list of command line arguments 
+    """
     print("{}@{} by {}".format(PROGRAM_NAME, PROGRAM_VERSION, PROGRAM_AUTHOR))
     print("\n[NAME]\t[FLAGS]\t\t\t[DESCRIPTION]")
     for _setting in settings.values():
         print("{}\t{}\t\t{}\n\tUsage: {}".format(_setting.name, _setting.synonyms, _setting.description, _setting.usage), end="\n\n")
     print("usage: python render.py [options]")
+#----------------------------------------------------------------------
 
+# Vital functions
 
-def loadData(imagePath, WIDTH, HEIGHT, findX=False, findY=False):
+# Process Image Data
+def process(imagePath: str, WIDTH, HEIGHT, findX=False, findY=False):
+    """Loads image data from file, parses it and creates an image. If the size is unknown, it tries to find it, if the findX and findY params are set.
+
+    Parameters:
+    imagePath (str): Path to the image file
+    WIDTH (int): Width of the image
+    HEIGHT (int): Height of the image
+    findX (bool): If the width of the image should be calculated automatically
+    findY (bool): If the height of the image should be calculated automatically
+    """
+
     if settings["debug"].value == True:
         print("File IO > Opening image data...")
     dataFile = open(imagePath, "r")
@@ -143,7 +180,10 @@ def loadData(imagePath, WIDTH, HEIGHT, findX=False, findY=False):
     mainloop()
 
 
+# Init function
 def init():
+    """ Processes the command line arguments and starts the image 
+    """
     if len(sys.argv) > 1:
         processCLI_Args(sys.argv[1:])
 
@@ -165,7 +205,10 @@ def init():
         settings["height"].value = int(settings["height"])
 
     
-    loadData(settings["path"].value, settings["width"].value, settings["height"].value, settings["findx"].value, settings["findy"].value)
+    process(settings["path"].value, settings["width"].value, settings["height"].value, settings["findx"].value, settings["findy"].value)
+#----------------------------------------------------------------------
 
 
+# Main 
 init()
+
