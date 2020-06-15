@@ -55,7 +55,7 @@ Distributed under the GNU General Public License V3.
 See `LICENSE` for more details.
 
 ## Contact
-Vincent van Setten - [@Vvamp](https://github.com/Vvamp) - [school@vincentvansetten.com](mailto:school@vincentvansetten.com)
+Vincent van Setten - [@Vvamp](https://github.com/Vvamp) - [school@vincentvansetten.com](mailto:school@vincentvansetten.com)  
 Project: [Image Loader](https://github.com/Vvamp/ImageLoader)
 
 ## Acknowledgements
