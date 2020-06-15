@@ -56,7 +56,7 @@ See `LICENSE` for more details.
 
 ## Contact
 Vincent van Setten - [@Vvamp](https://github.com/Vvamp) - [school@vincentvansetten.com](mailto:school@vincentvansetten.com)  
-Project: [Image Loader](https://github.com/Vvamp/ImageLoader)
+Project: [Image Renderer](https://github.com/Vvamp/ImageRenderer)
 
 ## Acknowledgements
 - [Hogeschool Utrecht](https://www.hu.nl/)
