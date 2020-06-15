@@ -11,11 +11,11 @@ A simple script that can render raw RGB data into a JPEG image.
 
 ## Table of Contents
 - [Getting Started](#Getting-Started)
-- - [Prerequisites](#Prerequisites)
-- - [Installation]("#Installation)
+    - [Prerequisites](#Prerequisites)
+    - [Installation]("#Installation)
 - [Usage](#Usage)
-- - [Automatic Options](#Automatic-Options)
-- - [Command Line Arguments](#Command-Line-Arguments)
+    - [Automatic Options](#Automatic-Options)
+    - [Command Line Arguments](#Command-Line-Arguments)
 - [Contributing](#Contributing)
 - [License](#License)
 - [Contact](#Contact)
