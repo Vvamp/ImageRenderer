@@ -1,4 +1,4 @@
 language: python
 install:
     - pip install -r requirements.txt
-script: python render.py --path test.txt --findx --findy
+script: python render.py --path test.txt --findx --findy -q --debug
