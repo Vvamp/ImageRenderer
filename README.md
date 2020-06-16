@@ -48,7 +48,7 @@ You can test the code by running `python render.py --path tests/test.txt -o test
 This should generate an image file within the tests folder called 'test.jpg' and should look identical to the 'test-target.jpg'.  
 
 ### Test Image
-![test-target.jpg](tests/test-target.jpg)
+![test-target.jpg](tests/test-target.jpg)  
 *test-target.jpg*
 
 ## Contributing
