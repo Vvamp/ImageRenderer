@@ -3,6 +3,7 @@ from tkinter import *
 from math import sin
 from PIL import Image, ImageDraw
 import PIL
+import os
 import math
 import sys
 
@@ -235,12 +236,13 @@ def render(imagePath: str, WIDTH: int, HEIGHT: int, findX=False, findY=False):
         WIDTH = calculateWidth(rgbdata)
 
     # Make a tkinter window
-    window = Tk()
-    window.title("Image {}x{}".format(WIDTH, HEIGHT))
-    
-    # Make a canvas
-    canvas = Canvas(window, width=1920, height=1080, bg="#000000")
-    canvas.pack()
+    if not 'TRAVIS' in os.environ:
+        window = Tk()
+        window.title("Image {}x{}".format(WIDTH, HEIGHT))
+        
+        # Make a canvas
+        canvas = Canvas(window, width=1920, height=1080, bg="#000000")
+        canvas.pack()
 
     # Initialize an empty photo
     img = PhotoImage(width=WIDTH, height=HEIGHT)
@@ -249,7 +251,8 @@ def render(imagePath: str, WIDTH: int, HEIGHT: int, findX=False, findY=False):
         img_output = Image.new("RGB", (int(WIDTH), int(HEIGHT)))
         img_draw = PIL.ImageDraw.Draw(img_output)
 
-    canvas.create_image((int(WIDTH)/2, int(HEIGHT)/2), image=img, state="normal")
+    if not 'TRAVIS' in os.environ:
+        canvas.create_image((int(WIDTH)/2, int(HEIGHT)/2), image=img, state="normal")
 
     # Render pixels on the photo 1 by 1
     i = 0
@@ -272,7 +275,8 @@ def render(imagePath: str, WIDTH: int, HEIGHT: int, findX=False, findY=False):
     
     # Show everything
     if not settings["quiet"].value == True:
-        mainloop()
+        if not 'TRAVIS' in os.environ:
+            mainloop()
 
 
 # Init function
