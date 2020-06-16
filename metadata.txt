@@ -1,0 +1,3 @@
+PROGRAM_VERSION=0.7.6
+PROGRAM_AUTHOR="Vincent van Setten"
+PROGRAM_NAME="Image Renderer"
