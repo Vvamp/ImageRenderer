@@ -4,7 +4,7 @@
 ![Stars Badge](https://img.shields.io/github/stars/Vvamp/ImageLoader.svg?style=flat-square)
 ![Issues Badge](https://img.shields.io/github/issues/Vvamp/ImageLoader.svg?style=flat-square)
 ![License Badge](https://img.shields.io/github/license/Vvamp/ImageLoader.svg?style=flat-square)
-
+[![Build Status](https://travis-ci.com/Vvamp/ImageRenderer.svg?branch=master)](https://travis-ci.com/Vvamp/ImageRenderer)
 
 # Image Renderer
 A simple script that can render raw RGB data into a JPEG image.
@@ -71,3 +71,4 @@ Project: [Image Renderer](https://github.com/Vvamp/ImageRenderer)
 - [Hogeschool Utrecht](https://www.hu.nl/)
 - [Shields.io](https://https://shields.io/)
 - [Readme Template](https://github.com/othneildrew/Best-README-Template)
+- [Travis CI](https://travis-ci.com)
