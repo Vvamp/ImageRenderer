@@ -16,6 +16,8 @@ A simple script that can render raw RGB data into a JPEG image.
 - [Usage](#Usage)
     - [Automatic Options](#Automatic-Options)
     - [Command Line Arguments](#Command-Line-Arguments)
+- [Tests](#Tests)
+    - [Test Image](#Test-Image)
 - [Contributing](#Contributing)
 - [License](#License)
 - [Contact](#Contact)
@@ -42,10 +44,12 @@ The command `python render.py -o my_image.jpg` exports the rendered image into a
 
 **See `python render.py -h` for a list of commands**
 ## Tests
-You can test the code by running `python render.py --path tests/test.txt -o tests/test.jpg --findx --findy -q`.
-This should generate an image file within the tests folder called 'test.jpg' and should look identical to the 'test-target.jpg'.
-![test-target.jpg](tests/test-target.jpg)
+You can test the code by running `python render.py --path tests/test.txt -o tests/test.jpg --findx --findy -q`.  
+This should generate an image file within the tests folder called 'test.jpg' and should look identical to the 'test-target.jpg'.  
 
+### Test Image
+![test-target.jpg](tests/test-target.jpg)
+*test-target.jpg*
 
 ## Contributing
 1. Fork the project
