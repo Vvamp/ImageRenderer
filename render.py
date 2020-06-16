@@ -245,7 +245,8 @@ def render(imagePath: str, WIDTH: int, HEIGHT: int, findX=False, findY=False):
         canvas.pack()
 
     # Initialize an empty photo
-    img = PhotoImage(width=WIDTH, height=HEIGHT)
+    if not 'TRAVIS' in os.environ:
+        img = PhotoImage(width=WIDTH, height=HEIGHT)
         
     if settings["output"].value != "unset":
         img_output = Image.new("RGB", (int(WIDTH), int(HEIGHT)))
@@ -258,7 +259,8 @@ def render(imagePath: str, WIDTH: int, HEIGHT: int, findX=False, findY=False):
     i = 0
     for y in range(0, int(HEIGHT)):
         for x in range(0, int(WIDTH)):
-            img.put(rgbdata[i], (x,y))
+            if not 'TRAVIS' in os.environ:
+                img.put(rgbdata[i], (x,y))
             if settings["output"].value != "unset":
                 img_draw.point((x,y), photoData[i])
             i+=1
