@@ -1,4 +1,4 @@
 language: python
 install:
     - pip install -r requirements.txt
-script: render.py --path test.txt --width 50 --height 50 -q
+script: render.py --path test.txt --findx --findy
