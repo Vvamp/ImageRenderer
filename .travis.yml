@@ -1,5 +1,4 @@
 language: python
 install:
     - pip install -r requirements.txt
-    - pip install . 
 script: render.py --path test.txt --width 50 --height 50 -q
