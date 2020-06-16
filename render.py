@@ -1,4 +1,10 @@
-
+#---------------------------------------------------------------------------------------
+# Project:      Image Renderer
+# Authored by:  Vincent van Setten
+# Date:         June 2020
+# License:      GNU-GP-3
+# More information about the license at https://github.com/Vvamp/ImageRenderer/LICENSE
+#---------------------------------------------------------------------------------------
 
 #!/bin/python
 from tkinter import *
@@ -11,11 +17,13 @@ import sys
 
 #TODO
 # Split in files
+# Serial 
+# generateTestPattern(generateColorTest)
 
 # Meta Data
 PROGRAM_AUTHOR="Vincent van Setten"
 PROGRAM_NAME="RGB Renderer"
-PROGRAM_VERSION="0.6.1"
+PROGRAM_VERSION="0.7.4"
 
 # Settings(Command Line Arguments)
 
@@ -40,7 +48,7 @@ settings = {
     "width"     : setting("width", "Set the width of the image.", False, -1, "render.py --width <width>", ['-width']),
     "height"    : setting("height", "Set the height of the image.", False, -1, "render.py --height", ['-height']),
     "output"    : setting("output", "Save the image", False, "unset", "render.py --output <file>", ['-output', '-out', 'o'] ),
-    "quiet"     : setting("quiet", "Hides the render window", True, False, "render.py -q", ['-quiet', 'q'])
+    "quiet"     : setting("quiet", "Only renders the image. Doesn't show the image window.", True, False, "render.py -q", ['-quiet', 'q'])
 }
 
 def processCLI_Args(args):
@@ -193,19 +201,24 @@ def calculateHeight(rgbdata, width=-1):
         return math.floor(math.sqrt(len(rgbdata)))
 
 def export(image):
-    print("Export > Preparing image for exporting...")
+    if settings["debug"].value == True:
+        print("Export > Preparing image for exporting...")
    # Save the image to file if set
     if settings["output"].value != "unset":
         extension = ""
         if not settings["output"].value.endswith("jpg"):
             extension = ".jpg"
         name = settings["output"].value + extension
-        print("Export > Saving image {}... ".format(name), end="")
+        if settings["debug"].value == True:
+            print("Export > Saving image {}... ".format(name), end="")
         try:
             image.save(name)
+            if settings["debug"].value == True:
+                print("success!")
+
         except:
-            print('fail.')
-        print("success!")
+            if settings["debug"].value == True:
+                print('fail.')
 
 # Render Image Data
 def render(imagePath: str, WIDTH: int, HEIGHT: int, findX=False, findY=False):
