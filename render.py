@@ -33,7 +33,8 @@ settings = {
     "path"      : setting("path", "Sets the path to the image path. This file has to be in raw text and should contain RGB data.", False, "unset", "render.py --path <path_to_file>", ['-path', '-file', 'f']),
     "width"     : setting("width", "Set the width of the image.", False, -1, "render.py --width <width>", ['-width']),
     "height"    : setting("height", "Set the height of the image.", False, -1, "render.py --height", ['-height']),
-    "output"    : setting("output", "Save the image", False, "unset", "render.py --output <file>", ['-output', '-out', 'o'] )
+    "output"    : setting("output", "Save the image", False, "unset", "render.py --output <file>", ['-output', '-out', 'o'] ),
+    "quiet"     : setting("quiet", "Hides the render window", True, False, "render.py -q", ['-quiet', 'q'])
 }
 
 def processCLI_Args(args):
@@ -270,7 +271,8 @@ def render(imagePath: str, WIDTH: int, HEIGHT: int, findX=False, findY=False):
 
     
     # Show everything
-    mainloop()
+    if not settings["quiet"].value == True:
+        mainloop()
 
 
 # Init function
