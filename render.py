@@ -1,3 +1,5 @@
+
+
 #!/bin/python
 from tkinter import *
 from math import sin
@@ -6,6 +8,9 @@ import PIL
 import os
 import math
 import sys
+
+#TODO
+# Split in files
 
 # Meta Data
 PROGRAM_AUTHOR="Vincent van Setten"
@@ -28,8 +33,8 @@ class setting:
 # A dictionary of command line arguments. Try to refrai from using the key. Instead, use the value's synonyms. 
 settings = {
     "debug"     : setting("debug", "Toggles debugging output.", True, False, "render.py --debug", ['-debug', 'd']),
-    "findy"     : setting("findx", "Make the program find the correct height based on the width. If the width is also unknown, it makes a square image.", True, False, "render.py --findx", ['-findx', 'x']),
-    "findx"     : setting("findy", "Makes the program find the correct width based on the height. If the height is also unknown, it makes a square image.", True, False, "render.py --findy", ['-findy', 'y']),
+    "findx"     : setting("findx", "Make the program find the correct height based on the width. If the width is also unknown, it makes a square image.", True, False, "render.py --findx", ['-findx', 'x']),
+    "findy"     : setting("findy", "Makes the program find the correct width based on the height. If the height is also unknown, it makes a square image.", True, False, "render.py --findy", ['-findy', 'y']),
     "help"      : setting("help", "Shows this help menu.", True, False, "render.py --help", ['-help', 'h']),
     "path"      : setting("path", "Sets the path to the image path. This file has to be in raw text and should contain RGB data.", False, "unset", "render.py --path <path_to_file>", ['-path', '-file', 'f']),
     "width"     : setting("width", "Set the width of the image.", False, -1, "render.py --width <width>", ['-width']),
@@ -225,6 +230,8 @@ def render(imagePath: str, WIDTH: int, HEIGHT: int, findX=False, findY=False):
     if settings["debug"].value == True:
         print ("Renderer > Rendering Image...", end="")
     
+    WIDTH = int(WIDTH)
+    HEIGHT = int(HEIGHT)
 
     # Check if the sizes have been calculated. Calculate them otherwise
     if findY == True and findX == False:
@@ -234,6 +241,7 @@ def render(imagePath: str, WIDTH: int, HEIGHT: int, findX=False, findY=False):
     elif findX and findY:
         HEIGHT = calculateHeight(rgbdata)
         WIDTH = calculateWidth(rgbdata)
+
 
     # Make a tkinter window
     if not 'TRAVIS' in os.environ:
