@@ -127,7 +127,7 @@ def getData(imagePath):
     return data
 def parseOutputData(data):
     if settings["debug"].value == True:
-        print("Parser > Parsing output data...", end="")
+        print("Parser > Init Parsing output data...")
     rgbdata = []
     i=0
     for rgbval in data.split(')'):
@@ -135,23 +135,23 @@ def parseOutputData(data):
             continue
         i+=1
         if settings["debug"].value == True:
-            print("Parser > RGB bytes: {}".format(i))
+            print("Parser > Total RGB bytes: {}".format(i))
         rgbval = rgbval.replace('(', '')
         rgbval = rgbval.replace(')', '')
         rgbval = rgbval.replace('\n', '')
         rgbval = rgbval.replace(' ', '')
         if settings["debug"].value == True:
-            print(rgbval)
+            print("Parser > Parsed: {}".format(rgbval))
         red = int(rgbval.split(',')[0])
         green = int(rgbval.split(',')[1])
         blue = int(rgbval.split(',')[2])
         rgbdata.append((red, green, blue))
     if settings["debug"].value == True:
-        print(" success!")
+        print("Parser > Output data parsing success!")
     return rgbdata
 def parseData(data):
     if settings["debug"].value == True:
-        print("Parser > Parsing data...", end="")
+        print("Parser > Init Parsing data...")
     rgbdata = []
     i=0
     for rgbval in data.split(')'):
@@ -159,19 +159,19 @@ def parseData(data):
             continue
         i+=1
         if settings["debug"].value == True:
-            print("Parser > RGB bytes: {}".format(i))
+            print("Parser > Total RGB bytes: {}".format(i))
         rgbval = rgbval.replace('(', '')
         rgbval = rgbval.replace(')', '')
         rgbval = rgbval.replace('\n', '')
         rgbval = rgbval.replace(' ', '')
         if settings["debug"].value == True:
-            print(rgbval)
+            print("Parser > Parsed: {}".format(rgbval))
         red = int(rgbval.split(',')[0])
         green = int(rgbval.split(',')[1])
         blue = int(rgbval.split(',')[2])
         rgbdata.append("#{0:02x}{1:02x}{2:02x}".format(clamp(red), clamp(green), clamp(blue)))
     if settings["debug"].value == True:
-        print(" success!")
+        print("Parser > Data parsing success!")
     return rgbdata
 
 def calculateWidth(rgbdata, height=-1):
