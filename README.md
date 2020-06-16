@@ -1,9 +1,9 @@
 <!-- Project Badges-->
-![Contributors Badge](https://img.shields.io/github/contributors/Vvamp/ImageLoader.svg?style=flat-square)
-![Forks Badge](https://img.shields.io/github/forks/Vvamp/ImageLoader.svg?style=flat-square)
-![Stars Badge](https://img.shields.io/github/stars/Vvamp/ImageLoader.svg?style=flat-square)
-![Issues Badge](https://img.shields.io/github/issues/Vvamp/ImageLoader.svg?style=flat-square)
-![License Badge](https://img.shields.io/github/license/Vvamp/ImageLoader.svg?style=flat-square)
+![Contributors Badge](https://img.shields.io/github/contributors/Vvamp/ImageLoader.svg?)
+![Forks Badge](https://img.shields.io/github/forks/Vvamp/ImageLoader.svg?)
+![Stars Badge](https://img.shields.io/github/stars/Vvamp/ImageLoader.svg?)
+![Issues Badge](https://img.shields.io/github/issues/Vvamp/ImageLoader.svg?)
+![License Badge](https://img.shields.io/github/license/Vvamp/ImageLoader.svg?)
 [![Build Status](https://travis-ci.com/Vvamp/ImageRenderer.svg?branch=master)](https://travis-ci.com/Vvamp/ImageRenderer)
 
 # Image Renderer
