@@ -41,6 +41,11 @@ For example: `python render.py -h` shows all the available command line argument
 The command `python render.py -o my_image.jpg` exports the rendered image into a file name 'my_image.jpg'.
 
 **See `python render.py -h` for a list of commands**
+## Tests
+You can test the code by running `python render.py --path tests/test.txt -o tests/test.jpg --findx --findy -q`.
+This should generate an image file within the tests folder called 'test.jpg' and should look identical to the 'test-target.jpg'.
+![test-target.jpg](tests/test-target.jpg)
+
 
 ## Contributing
 1. Fork the project
