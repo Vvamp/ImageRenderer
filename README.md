@@ -26,7 +26,7 @@ A simple script that can render raw RGB data into a JPEG image.
 ## Getting Started
 ### Prerequisites
 1. [Python](https://www.python.org/)
-2. Python Pip
+2. [Python Pip]("https://pypi.org/project/pip/")
 
 
 ### Installation
