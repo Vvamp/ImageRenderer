@@ -26,11 +26,17 @@ A simple script that can render raw RGB data into a JPEG image.
 ## Getting Started
 ### Prerequisites
 1. [Python](https://www.python.org/)
-2. Pillow `pip install Pillow`
-3. PySerial `pip install pyserial`
+2. Python Pip
+
 
 ### Installation
-Simply clone this project somewhere you like and you're done!
+1. Clone this project somewhere you like
+    - `git clone https://github.com/Vvamp/ImageRenderer`
+2. Cd into the project directory
+    - `cd ImageRenderer`
+3. Install the required modules
+    - `pip install -r requirements.txt`
+
 
 ## Usage
 ### Automatic Options
