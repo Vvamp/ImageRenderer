@@ -75,6 +75,6 @@ Project: [Image Renderer](https://github.com/Vvamp/ImageRenderer)
 
 ## Acknowledgements
 - [Hogeschool Utrecht](https://www.hu.nl/)
-- [Shields.io](https://https://shields.io/)
+- [Shields.io](https://shields.io/)
 - [Readme Template](https://github.com/othneildrew/Best-README-Template)
 - [Travis CI](https://travis-ci.com)
